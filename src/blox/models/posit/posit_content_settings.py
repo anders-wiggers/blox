@@ -1,9 +1,66 @@
+from enum import StrEnum
 from typing import Optional, Literal
 
-class Settings:
-    pass
+class Config(StrEnum):
+    """
+    Enum for the keys in the config_release.yml file
+    """
+    NAME = "name"
+    DESCRIPTION = "description"
+    ACCESS_TYPE = "access_type"
+    TITLE = "title"
+    CONNECTION_TIMEOUT = "connection_timeout"
+    READ_TIMEOUT = "read_timeout"
+    INIT_TIMEOUT = "init_timeout"
+    IDLE_TIMEOUT = "idle_timeout"
+    MAX_PROCESSES = "max_processes"
+    MIN_PROCESSES = "min_processes"
+    MAX_CONNS_PER_PROCESS = "max_conns_per_process"
+    LOAD_FACTOR = "load_factor"
+    CPU_REQUEST = "cpu_request"
+    CPU_LIMIT = "cpu_limit"
+    MEMORY_REQUEST = "memory_request"
+    MEMORY_LIMIT = "memory_limit"
+    AMD_GPU_LIMIT = "amd_gpu_limit"
+    NVIDIA_GPU_LIMIT = "nvidia_gpu_limit"
+    RUN_AS = "run_as"
+    RUN_AS_CURRENT_USER = "run_as_current_user"
+    DEFAULT_IMAGE_NAME = "default_image_name"
+    DEFAULT_R_ENVIRONMENT_MANAGEMENT = "default_r_environment_management"
+    DEFAULT_PY_ENVIRONMENT_MANAGEMENT = "default_py_environment_management"
+    SERVICE_ACCOUNT_NAME = "service_account_name"
+    EXTENSION = "extension"
 
-class PositContentSettings(Settings):
+class PositContentSettings:
+    """
+    Encapsulates the settings for a content object in Posit
+    """
+    name: Optional[str] = None
+    description: Optional[str] = None
+    access_type: Optional[Literal['all', 'logged_in', 'acl']] = 'acl'
+    title: Optional[str] = None
+    connection_timeout: Optional[int] = None
+    read_timeout: Optional[int] = None
+    init_timeout: Optional[int] = None
+    idle_timeout: Optional[int] = None
+    max_processes: Optional[int] = None
+    min_processes: Optional[int] = None
+    max_conns_per_process: Optional[int] = None
+    load_factor: Optional[float] = None
+    cpu_request: Optional[float] = None
+    cpu_limit: Optional[float] = None
+    memory_request: Optional[int] = None
+    memory_limit: Optional[int] = None
+    amd_gpu_limit: Optional[float] = None
+    nvidia_gpu_limit: Optional[float] = None
+    run_as: Optional[str] = None
+    run_as_current_user: Optional[bool] = False
+    default_image_name: Optional[str] = None
+    default_r_environment_management: Optional[bool] = None
+    default_py_environment_management: Optional[bool] = None
+    service_account_name: Optional[str] = None
+    extension: Optional[bool] = None
+
     def __init__(
         self,
         name: Optional[str] = None,

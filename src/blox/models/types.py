@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, StrEnum
 
 class Language(Enum):
     PYTHON = 0
@@ -8,3 +8,4 @@ class Deployment_Type(Enum):
     API = 0
     DASHBOARD = 1
     ETL = 2
+

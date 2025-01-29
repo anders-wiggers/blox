@@ -2,8 +2,9 @@ from abc import ABC, abstractmethod
 from enum import StrEnum
 from typing import Generic, TypeVar
 
-I = TypeVar('I')
-O = TypeVar('O')
+I = TypeVar("I")  # noqa: E741
+O = TypeVar("O")  # noqa: E741
+
 
 class Configure(ABC, Generic[I, O]):
     """
@@ -16,7 +17,7 @@ class Configure(ABC, Generic[I, O]):
 
     Attributes:
         None (abstract base class)
-    
+
     Methods:
         configure(self, input: I, configuration: O) -> O:
             Abstract method that applies the configuration logic to the input and configuration models.
@@ -24,13 +25,13 @@ class Configure(ABC, Generic[I, O]):
 
     Example:
         # Example of a subclass implementing the `configure` method:
-        
+
         class MyConfigurator(Configure[InputModel, ConfigModel]):
             def configure(self, input: InputModel, configuration: ConfigModel) -> ConfigModel:
                 # Implement specific configuration logic here
                 return configuration
     """
-    
+
     @abstractmethod
     def configure(self, input: I, configuration: O) -> O:
         """
@@ -56,37 +57,38 @@ class Configure(ABC, Generic[I, O]):
                 return configuration
         """
         pass
-    
+
+
 class StrictConfigurator:
     """
     A strict configurator that enforces configuration only on specified writable fields of a content model.
-    
+
     This class ensures that only a predefined set of attributes can be set in the content model.
-    It is used for creating objects that should only be configured with specific fields, 
+    It is used for creating objects that should only be configured with specific fields,
     as defined during the initialization of the `StrictConfigurator` instance.
 
     Attributes:
         writable_attributes (tuple): A tuple of field names (strings) that are allowed to be configured.
         configure (Configure): An instance of the `Configure` class, responsible for setting up the configuration.
-    
+
     Methods:
         __init__(self, configure: Configure, *fields: StrEnum):
             Initializes the `StrictConfigurator` with a `Configure` instance and a list of writable fields.
-        
+
         create_configured_object(self, input_model: I, content_model_class: O) -> O:
             Creates and returns an object of `content_model_class`, configuring it using the `input_model`.
             The configuration is applied strictly to the writable fields specified at initialization.
 
     Example:
         # Example usage of StrictConfigurator class
-        
+
         # Initialize a configurator with the specific writable fields
         configurator = StrictConfigurator(configure_instance, 'field1', 'field2', 'field3')
-        
+
         # Use the configurator to create and configure a new content model instance
         content_model_instance = configurator.create_configured_object(input_model, ContentModel)
     """
-    
+
     def __init__(self, configure: Configure, *fields: StrEnum):
         """
         Initializes a StrictConfigurator instance with the provided `Configure` instance and the list
@@ -122,7 +124,7 @@ class StrictConfigurator:
         Example:
             configured_object = configurator.create_configured_object(input_model, ContentModel)
         """
-        
+
         class mutable_content_model:
             """
             A mutable content model class used to apply configurations to the provided fields. This class
@@ -132,13 +134,13 @@ class StrictConfigurator:
                 writable_attributes (tuple): The list of fields that can be modified.
                 init (bool): A flag used to differentiate between the initial and configured state.
             """
-            
+
             init = True
 
             def __init__(self, writable_attributes):
                 """
                 Initializes the mutable content model with the list of writable attributes.
-                
+
                 Args:
                     writable_attributes (tuple): The list of attributes that are allowed to be modified.
                 """
@@ -163,10 +165,14 @@ class StrictConfigurator:
                     raise AttributeError(f"Attribute '{name}' is not writable")
 
         # Create a temporary mutable content model instance
-        temperary_mutable_content_instance = mutable_content_model(self.writable_attributes)
+        temperary_mutable_content_instance = mutable_content_model(
+            self.writable_attributes
+        )
 
         # Configure the instance using the provided `Configure` implementation
-        self.__configure_instance.configure(input_model, temperary_mutable_content_instance)
+        self.__configure_instance.configure(
+            input_model, temperary_mutable_content_instance
+        )
 
         # Transfer the writable attribute values to the content model class
         for field in dir(temperary_mutable_content_instance):
@@ -176,4 +182,3 @@ class StrictConfigurator:
 
         # Return the configured instance
         return content_model_class
-

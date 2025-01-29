@@ -1,10 +1,12 @@
 from enum import StrEnum
 from typing import Optional, Literal
 
+
 class Config(StrEnum):
     """
     Enum for the keys in the config_release.yml file
     """
+
     NAME = "name"
     DESCRIPTION = "description"
     ACCESS_TYPE = "access_type"
@@ -31,13 +33,15 @@ class Config(StrEnum):
     SERVICE_ACCOUNT_NAME = "service_account_name"
     EXTENSION = "extension"
 
+
 class PositContentSettings:
     """
     Encapsulates the settings for a content object in Posit
     """
+
     name: Optional[str] = None
     description: Optional[str] = None
-    access_type: Optional[Literal['all', 'logged_in', 'acl']] = 'acl'
+    access_type: Optional[Literal["all", "logged_in", "acl"]] = "acl"
     title: Optional[str] = None
     connection_timeout: Optional[int] = None
     read_timeout: Optional[int] = None
@@ -65,7 +69,7 @@ class PositContentSettings:
         self,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        access_type: Optional[Literal['all', 'logged_in', 'acl']] = 'acl',
+        access_type: Optional[Literal["all", "logged_in", "acl"]] = "acl",
         title: Optional[str] = None,
         connection_timeout: Optional[int] = None,
         read_timeout: Optional[int] = None,
@@ -93,13 +97,19 @@ class PositContentSettings:
         self.title = title  # The title of the content
         self.description = description  # A rich description of the content
         self.access_type = access_type  # How content manages viewers
-        self.connection_timeout = connection_timeout  # Max seconds without data sent/received
-        self.read_timeout = read_timeout  # Max seconds without data from a client connection
+        self.connection_timeout = (
+            connection_timeout  # Max seconds without data sent/received
+        )
+        self.read_timeout = (
+            read_timeout  # Max seconds without data from a client connection
+        )
         self.init_timeout = init_timeout  # Max seconds for an interactive app to start
         self.idle_timeout = idle_timeout  # Max seconds a worker process can stay idle
         self.max_processes = max_processes  # Max concurrent processes allowed
         self.min_processes = min_processes  # Min concurrent processes allowed
-        self.max_conns_per_process = max_conns_per_process  # Max connections per process
+        self.max_conns_per_process = (
+            max_conns_per_process  # Max connections per process
+        )
         self.load_factor = load_factor  # Controls new process spawning
         self.cpu_request = cpu_request  # Min compute power in "CPU Units"
         self.cpu_limit = cpu_limit  # Max compute power in "CPU Units"
@@ -108,9 +118,17 @@ class PositContentSettings:
         self.amd_gpu_limit = amd_gpu_limit  # Number of AMD GPUs allocated
         self.nvidia_gpu_limit = nvidia_gpu_limit  # Number of NVIDIA GPUs allocated
         self.run_as = run_as  # The UNIX user executing the content
-        self.run_as_current_user = run_as_current_user  # Run processes under visiting user's account
+        self.run_as_current_user = (
+            run_as_current_user  # Run processes under visiting user's account
+        )
         self.default_image_name = default_image_name  # Default image used for execution
-        self.default_r_environment_management = default_r_environment_management  # Manage R environment
-        self.default_py_environment_management = default_py_environment_management  # Manage Python environment
-        self.service_account_name = service_account_name  # Kubernetes service account name
+        self.default_r_environment_management = (
+            default_r_environment_management  # Manage R environment
+        )
+        self.default_py_environment_management = (
+            default_py_environment_management  # Manage Python environment
+        )
+        self.service_account_name = (
+            service_account_name  # Kubernetes service account name
+        )
         self.extension = extension  # Whether the content is a Connect Extension

@@ -4,8 +4,6 @@ from blox.models.posit.posit_content_settings import PositContentSettings
 
 
 class Configure_Runtime_Image(Configure[ConfigReleaseModel, PositContentSettings]):
-    def configure(
-        self, input: ConfigReleaseModel, configuration: PositContentSettings
-    ) -> PositContentSettings:
-        configuration.default_image_name = input.run_time_image
-        return configuration
+	def configure(self, input: ConfigReleaseModel, configuration: PositContentSettings) -> PositContentSettings:
+		configuration.default_image_name = input.run_time_image
+		return configuration

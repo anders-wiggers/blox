@@ -19,3 +19,15 @@ dev = [
     "ruff>=0.9.3",
     "pytest>=8.3.4",
 ]
+
+[tool.ruff]
+line-length = 180
+target-version = "py313"
+
+[tool.ruff.format]
+indent-style = "tab"
+docstring-code-format = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]

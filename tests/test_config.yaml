@@ -23,27 +23,27 @@ default: &default
 
 dev:
   inherits:                         default
-  run_as_user:                      {{cookiecutter.author_initials}}      # On prem you can use your own user name, but not in cloud
-  app_name:                         {{cookiecutter.api_name}}_dev         # Only snake-case (lower case and underscore)
-  vanity_url:                       /{{cookiecutter.api_name}}
+  run_as_user:                      cookiecutter.author_initials      # On prem you can use your own user name, but not in cloud
+  app_name:                         cookiecutter.api_name_dev         # Only snake-case (lower case and underscore)
+  vanity_url:                       /cookiecutter.api_name
   collaborator_groups:                                                    # Allowed to change content settings and view logs    
   - SEK-XXXY
 
 test:
   inherits:                         default
   run_as_user:                      SERVICE-USER-HERE-U                   # Here you must use a service account
-  app_name:                         {{cookiecutter.api_name}}_test        # Only snake-case (lower case and underscore)
-  vanity_url:                       /{{cookiecutter.api_name}}
+  app_name:                         cookiecutter.api_name_test        # Only snake-case (lower case and underscore)
+  vanity_url:                       /cookiecutter.api_name
 
 staging:
   inherits:                         default
   run_as_user:                      SERVICE-USER-HERE-P                   # Here you must use a service account
-  app_name:                         {{cookiecutter.api_name}}_staging     # Keep the -staging at the end
-  vanity_url:                       /{{cookiecutter.api_name}}_staging    # A special vanity URL is needed for staging
+  app_name:                         cookiecutter.api_name_staging     # Keep the -staging at the end
+  vanity_url:                       /cookiecutter.api_name_staging    # A special vanity URL is needed for staging
   max_processes:                    2
   response_time_median_threshold:   1500
 
 prod:
   inherits:                         staging
-  app_name:                         {{cookiecutter.api_name}}             # Only snake-case (lower case and underscore)
-  vanity_url:                       /{{cookiecutter.api_name}}
+  app_name:                         cookiecutter.api_name             # Only snake-case (lower case and underscore)
+  vanity_url:                       /cookiecutter.api_name

@@ -25,10 +25,10 @@ class TestContextConfig:
 
 
 class TestConfiguration(Configure[TestInputModel, TestContextConfig]):
-	def configure(self, input: TestInputModel, content: TestContextConfig) -> TestContextConfig:
-		content.memory_limit = input.memory_limit
-		content.memory_request = input.memory_request
-		return content
+	def configure(self, input: TestInputModel, configuration: TestContextConfig) -> TestContextConfig:
+		configuration.memory_limit = input.memory_limit
+		configuration.memory_request = input.memory_request
+		return configuration
 
 
 input_model = TestInputModel(memory_limit=100, memory_request=200)
